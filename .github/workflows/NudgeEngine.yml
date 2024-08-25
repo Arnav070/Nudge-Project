@@ -1,0 +1,45 @@
+name: Nudge Engine CI/CD Pipeline
+
+on:
+  push:
+    branches:
+      - main
+  schedule:
+    - cron: '0 * * * *'  # Runs every hour; adjust cron expression to match desired nudge times
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v2
+
+    - name: Set up Node.js
+      uses: actions/setup-node@v2
+      with:
+        node-version: '14'
+
+    - name: Install dependencies
+      run: npm install
+
+    - name: Run tests
+      run: npm test
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Deploy to Production
+      run: |
+        npm run build
+        npm run deploy  # Assuming you have a deploy script in your package.json
+
+  send-nudges:
+    needs: deploy
+    runs-on: ubuntu-latest
+    
+    steps:
+    - name: Send Scheduled Nudges
+      run: node sendNudges.js  # Replace with the actual script/command to send nudges
