@@ -3,7 +3,7 @@ name: Nudge Engine CI/CD Pipeline
 on:
   push:
     branches:
-      - main
+      -master
   schedule:
     - cron: '0 * * * *'  # Runs every hour; adjust cron expression to match desired nudge times
 
