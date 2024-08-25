@@ -18,7 +18,7 @@ jobs:
     - name: Set up Node.js
       uses: actions/setup-node@v2
       with:
-        node-version: '14'
+        node-version: '16'
 
     - name: Install dependencies
       run: npm install
@@ -42,4 +42,4 @@ jobs:
     
     steps:
     - name: Send Scheduled Nudges
-      run: node sendNudges.js  # Replace with the actual script/command to send nudges
+      run: node Nudges.js  # Replace with the actual script/command to send nudges
